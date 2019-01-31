@@ -48,7 +48,7 @@ class SimfusBoard {
 
             btnDarurat.on("hold", function() {
                 countDarurat++;
-                console.log("Darurat : " + countDarurat);
+                
 
                 if (daruratStatus == 1) {
                     countDarurat = 0;
@@ -215,7 +215,6 @@ class SimfusBoard {
         });
 
         board.on("close", function() {
-            console.log('Board closed');
             let date = moment().format("YYYY-MM-DD HH:mm:ss");
 
             database.ref("alat").orderByChild("Status").equalTo(2).once("value").then(function(snapshot) {
