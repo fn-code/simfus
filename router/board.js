@@ -55,7 +55,6 @@ class SimfusBoard {
                 } else {
                     temporal.delay(5000, () => {
                         countDarurat = 0;
-                        //console.log("Selesai");
                     });
                 }
 
@@ -112,16 +111,16 @@ class SimfusBoard {
                         lcd.clear().cursor(0, 0).print(":pointerright:Hitung Tetesan");
                         lcd.cursor(1, 0).print(" Menghitung...");
                         deteksiTetesan((res) => {
-                            console.log(key);
+                            
                             if (res < tts || res > tetesan) {
                                 board.io.reportDigitalPin(11, 0);
                                 database.ref("infus/" + key + "/TetesanAlat").set(res);
                                 sendPemberitahuanInfus("VA1", 2);
-                                console.log("tidak sesuai");
+                                
                                 clearTimeout(timeInterval);
                             } else {
                                 database.ref("infus/" + key + "/TetesanAlat").set(res);
-                                console.log("Aktif : " + res);
+                                
                             }
                             lcd.clear().cursor(0, 0).print(":pointerright:Hitung Tetesan");
                             lcd.cursor(1, 0).print(" Total : " + res);
@@ -145,7 +144,7 @@ class SimfusBoard {
                     lcd.cursor(1, 0).print(" Menghitung...");
                     deteksiTetesan(res => {
                         u++;
-                        console.log("Tes : " + res);
+                        
                         lcd.clear().cursor(0, 0).print(":pointerright:Tes Tetesan:" + u);
                         lcd.cursor(1, 0).print(" Total : " + res);
                     });
@@ -166,11 +165,11 @@ class SimfusBoard {
                 board.digitalRead(11, function(res) {
                     if (res == 0) {
                         cnt++;
-                        console.log(cnt);
+                        
                         if (cnt == 1) {
                             timeInterval = setTimeout(() => {
                                 callback(cnt);
-                                console.log("Jumlah : " + cnt);
+         
                                 cnt = 0;
                             }, 30000);
                         }
@@ -178,11 +177,7 @@ class SimfusBoard {
                 });
             }
 
-            // function deteksiTetesanInfus(callback) {
-            //     board.digitalRead(11, function(res) {
-            //         callback(res);
-            //     });
-            // }
+ 
 
             function getTetesanAwalPasien(kdAlat, callback) {
                 database.ref("infus").orderByChild("Status").equalTo(2).once("value").then(function(snapshot) {
@@ -217,21 +212,6 @@ class SimfusBoard {
 
             }
 
-
-            // let tetesA = 0;
-            // let dt = this.digitalRead(11, function(data) {
-            //     let jadiRes = data;
-            //     if (jadiRes == 0) {
-            //         tetesA++;
-            //         console.log(tetesA);
-            //         // if (tetesA == 1) {
-            //         //     setTimeout(() => {
-            //         //         console.log("Hasil : " + tetesA);
-            //         //         tetesA = 0;
-            //         //     }, 60000);
-            //         // }
-            //     }
-            // });
         });
 
         board.on("close", function() {
