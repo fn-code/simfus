@@ -19,14 +19,7 @@ router.get('/ruangan', (req,res)=>{
     })
 });
 
-router.get('/pasien', (req,res)=>{
-    let jsons = {"result":[
-        {"nama":"ludin", "umur": 23},
-        {"nama":"hasan", "umur": 30}
-    ]}
 
-    res.json(jsons)
-});
 
 
 module.exports = router;
